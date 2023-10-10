@@ -41,7 +41,7 @@ nav {
 }
 
 .navigation li a {
-  color: #ccc;
+  color: #fff;
   text-decoration: none;
   padding: 5px 10px;
 }
@@ -102,7 +102,7 @@ select {
 /* Footer */
 footer {
   border: none;
-  color: #ccc;
+  color: #fff;
   background-color: rgb(5, 5, 80);
   padding: 10px 20px;
   text-align: center;

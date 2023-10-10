@@ -52,11 +52,14 @@ nav {
 /* Hero Section */
 .hero {
   background-image: url("img.png");
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 300px 0;
   text-align: left;
   color: white;
 }
+
+
 
 .hero span {
   background-color: rgb(5, 5, 80);
@@ -90,9 +93,10 @@ nav {
 
 /* Features Section */
 .features {
-  background-image: url("x.png");
+  background-image: url("feature.png");
   height: 1000px;
-  background-size: contain;
+  opacity: 0.9;
+  background-size: cover;
   background-repeat: no-repeat;
   color: white;
   position: relative;

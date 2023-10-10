@@ -2,50 +2,49 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Retrieve form data
+  // Retrieving form data
   $fullname = $_POST['fullname'];
   $email = $_POST['email'];
   $password = $_POST['password'];
   $confirmPassword = $_POST['confirm-password'];
 
-  // Perform form validation
+  //Validatoin
   $errors = [];
 
-  // Validate full name (at least 2 words)
+  //(at least 2 words)
   $nameWords = explode(' ', $fullname);
   if (count($nameWords) < 2) {
     $errors[] = "Full name should contain at least 2 words.";
   }
 
-  // Validate email format
+  //email format
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = "Invalid email format.";
   }
 
-  // Validate password length (minimum 8 characters)
+  //password (minimum 8 characters)
   if (strlen($password) < 8) {
     $errors[] = "Password should be at least 8 characters long.";
   }
 
-  // Check if password and confirm password match
+  // pass $ con. pass equal
   if ($password !== $confirmPassword) {
     $errors[] = "Password and confirm password do not match.";
   }
 
-  // Check if there are any errors
   if (count($errors) > 0) {
-    // Prepare the error messages as a string
+    // error msg
     $errorMessage = implode("\\n", $errors);
     echo "<script>alert('$errorMessage'); window.location.href='signup.php';</script>";
     exit();
   } else {
-    // Form data is valid,further processing 
+ 
 
     // Database connection
     $servername = "localhost";
     $username = "root";
     $pass = "";
-    $database = "login_register";
+    $database = "sastobooks";
 
     $conn = new mysqli($servername, $username, $pass, $database);
 
@@ -53,20 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       die("Connection failed: " . $conn->connect_error);
     }
 
-    // Insert
+    // Inserting
     $sql = "INSERT INTO users (fullname, email, password) VALUES ('$fullname', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-      // User registration successful
+      // User signup successfully
 
       $_SESSION['email'] = $email;
-      // You can set more session variables as needed
+      $_SESSION['fullname'] = $fullname;
 
       // Redirect to success page
       header("Location: homepage.php");
       exit();
     } else {
-      // Error in database insertion
+      // Error in db insertion
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
@@ -75,7 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!--HTML-->
+
+
+<!--HTML code -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,18 +84,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SASTOBOOKS - Sign Up</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="signup.css">
 </head>
 
 <body>
   <div class="container">
-    <a href="homepage.php"><img src="blacklogo.png" alt="Logo" class="logo"></a>
+
+  <div class="image-container">
+        <img src="1.png" alt="Login Image">
+      </div>
+
+      <div class="form-container">
+    <a href="homepage.php"><img src="mylogo.png" alt="Logo" class="logo"></a>
     <h1>Sign Up</h1>
     <form action="signup.php" method="POST">
       <div class="form-group">
         <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" name="fullname" required>
+        <input type="text" id="fullname" name="fullname" required >
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -110,8 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <button type="submit">Sign Up</button>
     </form>
-    <p>Already have an account? <a href="login.html">Log in</a></p>
+    <p>Already have an account? <a href="login.php">Log in</a></p>
   </div>
+</div>
 </body>
 
 </html>

@@ -19,11 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
   }
 
-  // Assuming you have a database connection
   $servername = "localhost";
   $username = "root";
   $db_password = "";
-  $dbname = "login_register";
+  $dbname = "sastobooks";
 
   // Create a new connection
   $conn = new mysqli($servername, $username, $db_password, $dbname);
@@ -43,8 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($result && $result->num_rows == 1) {
     // User login successful
+    $row = $result->fetch_assoc();
     $_SESSION['email'] = $email;
-    header("Location: homepage.php"); // Redirect to the homepage or any other page you want
+    $_SESSION['fullname'] = $row['fullname'];
+    header("Location: homepage.php"); // Redirect to the homepage
     exit();
   } else {
     // User login failed
@@ -62,28 +63,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SASTOBOOKS - Login</title>
+  <title>Login Form</title>
   <link rel="stylesheet" href="login.css">
 </head>
-
 <body>
-  <div class="container">
-  <a href="homepage.php"><img src="blacklogo.png" alt="Logo" class="logo"></a>
-
-    <h1>Login</h1>
-    <form method="POST" action="login.php">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+    <div class="container">
+      <div class="image-container">
+        <img src="1.png" alt="Login Image">
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit" class="btn" name="button">Login</button>
-    </form>
-    <p>Don't have an account? <a href="signup.php">Sign up</a></p>
-  </div>
-</body>
+      <div class="form-container">
+        <a href="homepage.php"><img src="mylogo.png" alt="Logo" class="logo"></a>
 
-</html>
+        <h1>Login</h1>
+        <form method="POST" action="login.php">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit" class="btn" name="button">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.php">Sign up</a></p>
+      </div>
+    </div>
+  </body>
+  </html>
+  
+  
